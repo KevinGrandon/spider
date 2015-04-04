@@ -41,6 +41,36 @@ BioloidController bioloid = BioloidController(1000000);
 #define AX_SYNC_WRITE 131
 #define AX_GOAL_POSITION_L 30
 
+
+struct speed_angle pose[24];
+
+void add_motor(int id, int sp, int angle) {
+    pose[id].speed = sp;
+    pose[id].angle = angle;  
+}
+
+
+void add_leg(int id1, int speed1, int angle1, int id2, int  speed2, int angle2, 
+             int id3, int speed3, int angle3) {
+    pose[id1].speed = speed1;
+    pose[id1].angle = angle1;
+    pose[id2].speed = speed2;
+    pose[id2].angle = angle2;
+    pose[id3].speed = speed3;
+    pose[id3].angle = angle3;
+}
+
+void update_motor(int id, int spd, int angle){
+    add_motor(id, spd, angle);
+}
+
+void update_leg(int id1, int speed1, int angle1, int id2, int  speed2, int angle2, 
+                int id3, int speed3, int angle3) {
+    add_leg(id1, speed1, angle1, id2, speed2, angle2, 
+            id3, speed3, angle3);
+}
+
+
 void servoWrite(int id, int pos, int spd){
     int poseSize = 1;
     int temp;
